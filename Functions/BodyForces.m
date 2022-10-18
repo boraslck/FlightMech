@@ -83,7 +83,7 @@ function [F_body, M_body] = BodyForces(FlightData, X, U, Cfa_x, Cfa_z, CL, Q, al
 
     % Rotate from Euler Angles to Body Axis
     cy = C_y(alpha);
-    cz = C_z(beta);
+    cz = C_z(-beta);
    
     % Output Vectors of Forces and Moments in the Body Axis
     F_body = cy*cz*[-Fa_x Fa_y Fa_z]';
