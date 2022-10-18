@@ -43,9 +43,6 @@ U0          = U0_init;
 %% Trim Routine
 [X_trim U_Trim] = Trim (FlightData,X0);
 
-%% State Rates
-[Xdot, CL, Fa_y] = StateRates(FlightData, X, U, angle_rates);
-
 %% Integrate
 for i = 1:n_pt
 [X_new] = Integrate(FlightData,X_0,U,dt);
