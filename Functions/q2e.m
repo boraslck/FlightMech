@@ -13,7 +13,7 @@ function [eulers] = q2e(quats)
     e2 = atan2((q0*q2 - q1*q3),sqrt((q0^2 + q1^2 - (1/2))^2 + (q1*q2 + q0*q3)^2));
     e3 = atan2((q1*q2 + q0*q3),(q0^2 + q1^2 - (1/2)));
 
-    eulers(1) = rad2deg(e1); %phi in degrees
-    eulers(2) = rad2deg(e2); %theta in degrees
-    eulers(3) = rad2deg(e3); %psi in degrees
+    eulers(1,1) = rad2deg(e1); %phi in degrees
+    eulers(2,1) = rad2deg(e2); %theta in degrees
+    eulers(3,1) = rad2deg(e3); %psi in degrees
 end
