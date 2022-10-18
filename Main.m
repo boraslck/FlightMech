@@ -7,6 +7,9 @@ close all;
 clear;
 clc;
 
+folder = fileparts(which('Main.m')); 
+addpath(genpath(folder));
+
 % Main Simulation Script
 run Control_GUI
 clc
