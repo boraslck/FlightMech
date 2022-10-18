@@ -32,7 +32,7 @@ function [X_trim, U_trim] = Trim(FlightData, X0)
     Jacobian            = zeros(3);
 
     delta               = [1e-6 ; 1e-6 ; 1e-6];     % Increment
-    x_bar               = [alpha_0 ; U0(1) ; U(2)];
+    x_bar               = [alpha_0 ; U0(1) ; U0(2)];
 
     convergence         = 0;                        % Convergence (false)  
     Lim                 = 250;                      % Iteration Limit
@@ -50,7 +50,7 @@ function [X_trim, U_trim] = Trim(FlightData, X0)
 
 
         % State Rates 
-        X_dot           = MergeRates(FlightData,X0,U0);
+        X_dot           = StateRates(FlightData,X0,U0);
         f_bar           = X_dot(tr);
 
         % JACOBIAN perturbations

@@ -4,8 +4,7 @@
 % forces (lift and drag coefficients)
 
 %%
-function [Cf_z, Cd, CL] = WindForces(FlightData, X,U,V,...
-    angular_rates,alpha)
+function [Cf_z, Cd, CL] = WindForces(FlightData, X,U,V, angle_rates, alpha)
 
 % Get Flight Data
 CL0         = FlightData.Aero.CLo;      % (nondim)
@@ -18,7 +17,7 @@ k           = FlightData.Aero.k;        % (nondim)
 c           = FlightData.Geo.c;         % m
 
 % Extract the angle rates of change
-alpha_dot       = angular_rates(1);
+alpha_dot       = angle_rates(1);
 
 % Extract pitch rate from Body Rates from State Vector
 q               = X(5);
