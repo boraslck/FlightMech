@@ -1,7 +1,7 @@
 %% Initialisation
 
 %%
-function [Nominal, Secondary] = Initilisation(V,cg)
+function [Nominal, Secondary] = Initialise(V,cg)
 switch V % Velocity 
     case 100 % 100 knots
         switch CG % CG position
