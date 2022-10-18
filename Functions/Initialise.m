@@ -1,7 +1,10 @@
 %% Initialisation
 
 %%
-function [Nominal, Secondary] = Initialise(V,cg)
+function [X0 U0 FlightData ] = Initialise(V,CG)
+
+
+
 switch V % Velocity 
     case 100 % 100 knots
         switch CG % CG position
@@ -35,4 +38,5 @@ load ICs_PC9_CG2_180Kn_1000ft.mat
         end
 end
                
+     
 end
