@@ -18,7 +18,7 @@ function [rho,Q] = FlowProperties(X,V)
 %     Ps          = P0 * (Ts/T0)^(g/L/R);
 
     % Extract Altitude from the State Vector
-    h           = X(13); 
+    h           = -X(13); 
     
     % Display error in case of altitude exceeding limits
     if h >= 25000

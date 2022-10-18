@@ -83,7 +83,7 @@ function [Xdot, CL, Fa_y] = StateRates(FlightData, X, U, angle_rates)
     Ceb = Cbe';
 
     % Position Rates
-    position = Ceb*[u v w]';
+    position = Ceb*[u; v; w];
     
     % Output State Rates
     Xdot = [udot;vdot;wdot;pdot;qdot;rdot;q0dot;q1dot;q2dot;q3dot;position(1);position(2);position(3)];  

@@ -7,15 +7,15 @@ function [quaternion] = e2q(eulers)
     e3 = eulers(3); %euler angle psi
     
     %% If statements insuring no negative angles are subbed into the quaternion expressions
-    if e1 < 0
-        e1 = 360 + e1;
-    end
-    if e2 < 0
-        e1 = 360 + e1;
-    end
-    if e3 < 0
-        e1 = 360 + e1;
-    end
+%     if e1 < 0
+%         e1 = 360 + e1;
+%     end
+%     if e2 < 0
+%         e1 = 360 + e1;
+%     end
+%     if e3 < 0
+%         e1 = 360 + e1;
+%     end
     
     %% Quaternion expressions with euler angle inputs
     q0 = cos(e3/2)*cos(e2/2)*cos(e1/2) + sin(e3/2)*sin(e2/2)*sin(e1/2);

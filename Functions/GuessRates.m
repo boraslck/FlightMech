@@ -31,7 +31,7 @@ while error_abs > toler
         fprintf('Guess Rates Iteration Limit Error')
         break
     end
-    angle_rates
+    
     IterCount = IterCount + 1;
     
     

@@ -1,7 +1,7 @@
 % angularRates function: generate estimates of alphadot and betadot for force
 % generation
 
-function [alphadot, betadot] = AngularRates(X,Xdot)
+function [alphadot, betadot] = AngularRates(Xdot,X)
 
 %% INPUTS (outputs from AeroAngles.m)
 % X - state vector
@@ -13,17 +13,17 @@ function [alphadot, betadot] = AngularRates(X,Xdot)
 %% FUNCTION
 
 % Extract u v and w
-u = X(1,end);
-v = X(2,end);
-w = X(3,end);
+u = X(1);
+v = X(2);
+w = X(3);
 
 % Compute udot vdot and wdot
-udot = Xdot(1,end);
-vdot = Xdot(2,end);
-wdot = Xdot(3,end);
+udot = Xdot(1);
+vdot = Xdot(2);
+wdot = Xdot(3);
 
 % Calculate alphadot and betadot
-alphadot = (wdot*u - w*udot)/(u^2 + w^2);
-betadot = (vdot*u - v*udot)/(u^2 + v^2);
+alphadot = (wdot*u - w*udot)/(u^2);
+betadot = (vdot*u - v*udot)/(u^2);
 
 end

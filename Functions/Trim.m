@@ -65,18 +65,18 @@ function [X_trim, U_trim] = Trim(FlightData, X0)
                 % Angle of attack perturbation
                 if n ==1
                     % alpha and u
-                    NextX(1) = V*cos(x_bar(n) + delta);
-                    NextX(3) = V*sin(x_bar(n) +delta);
+                    NextX(1) = V*cos(x_bar(n) + delta(n));
+                    NextX(3) = V*sin(x_bar(n) +delta(n));
 
                     % Control perturbatiosns
                 else
                     % dt and de
-                   NextU(n-1) = x_bar(n) + delta;
+                   NextU(n-1) = x_bar(n) + delta(n);
 
                 end
 
                 % Find the state rates for the new state and control
-                NextX_dot = MergeRates(FlightData, NextX, NextU);
+                NextX_dot = GuessRates(FlightData, NextX, NextU);
 
                 % Locate the corresponding matrix
                 Jacobian(:,n) = (NextX_dot(tr) - X_dot(tr))./delta;
@@ -84,7 +84,7 @@ function [X_trim, U_trim] = Trim(FlightData, X0)
 
             % Renew x_bar and find error
             x_bar_next = x_bar - Jacobian\f_bar;
-            err = abs((x_bar_next - x_bar)./ [delta;delta;delta]);
+            err = abs((x_bar_next - x_bar)./ delta);
 
             % Check for convergence
             if max(err)<= toler
