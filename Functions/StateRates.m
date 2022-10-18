@@ -22,7 +22,10 @@ function [Xdot, CL, Fa_y] = StateRates(FlightData, X, U, angle_rates)
 
     % Use Previous Functions for all Forces and Moments on the Aircraft
     [V, alpha, beta] = AeroAngles(X);
+    [rho, Q] = FlowProperties(X,V);
     [Cfa_z, Cfa_x, CL] = WindForces(FlightData, X, U, V, angle_rates, alpha);
+    alpha_dot  = angle_rates(1);
+    beta_dot = angle_rates(2);
     [F_body, M_body] = BodyForces(FlightData, X, U, Cfa_x, Cfa_z, CL, Q,...
         alpha, beta, alpha_dot, beta_dot, V);
     [Fgx, Fgy, Fgz] = Gravity(FlightData, X);
