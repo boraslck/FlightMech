@@ -4,7 +4,7 @@
 % forces (lift and drag coefficients)
 
 %%
-function [Cf_z, Cd, CL] = WindForces(FlightData, X,U,V, angle_rates, alpha)
+function [Cf_z, Cd, CL] = WindForces(FlightData, X, U, V, angle_rates, alpha)
 
 % Get Flight Data
 CL0         = FlightData.Aero.CLo;      % (nondim)

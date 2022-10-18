@@ -50,7 +50,7 @@ function [X_trim, U_trim] = Trim(FlightData, X0)
 
 
         % State Rates 
-        X_dot           = StateRates(FlightData,X0,U0);
+        X_dot           = GuessRates(FlightData,X,U);
         f_bar           = X_dot(tr);
 
         % JACOBIAN perturbations
