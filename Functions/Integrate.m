@@ -46,11 +46,11 @@ function [X_new] = Integrate(FlightData,X_0,U,dt)
     % Normalise Quaternions
     X_4 = Normalise(X_4);
     
-    % State Rate at Step 3
+    % State Rate at Step 4
     [Xdot, CL, Fa_y] = StateRates(FlightData, X_4, U, angle_rates);
     X_dot_4 = Xdot;
     
-    % Incriment at Step 3
+    % Incriment at Step 4
     Dn = X_dot_4*dt;
     
     % New State

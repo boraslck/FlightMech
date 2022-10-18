@@ -7,6 +7,9 @@ close all;
 clear;
 clc;
 
+folder = fileparts(which('Main.m')); 
+addpath(genpath(folder));
+
 % Main Simulation Script
 run Control_GUI
 clc
@@ -38,8 +41,22 @@ X0          = [X0_init(1:6); quats_init; X0_init(10:12)];
 U0          = U0_init;
 
 %% Trim Routine
-
 [X_trim U_Trim] = Trim (FlightData,X0);
+
+%% State Rates
+[Xdot, CL, Fa_y] = StateRates(FlightData, X, U, angle_rates);
+
+%% Integrate
+for i = 1:n_pt
+[X_new] = Integrate(FlightData,X_0,U,dt);
+end
+
+%% Quaternions to Euler Angles
+quats = X(7:10);
+[eulers] = q2e(quats);
+
+%% Plotting
+
 
 
 
