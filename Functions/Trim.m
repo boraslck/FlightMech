@@ -82,7 +82,7 @@ function [X_trim, U_trim] = Trim(FlightData, X0)
 
             % Renew x_bar and find error
             x_bar_next = x_bar - Jacobian\f_bar;
-            err = abs((x_bar_next - x_bar)./ [delta;delta;delta];
+            err = abs((x_bar_next - x_bar)./ [delta;delta;delta]);
 
             % Check for convergence
             if max(err)<= toler
