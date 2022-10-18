@@ -30,7 +30,7 @@ T           = zeros(1,n_pt);    % Time Vector
 
 %% Initialise
 % Specify the Flight Data
-[X0_init U0_init FlightData] = Initialisation(V,cg_pos);
+[X0_init U0_init FlightData] = Initialise(V,cg_pos);
 
 % Convert to quaternions
 quats_init  = e2q(X0_init(7:9));

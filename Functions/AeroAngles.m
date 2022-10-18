@@ -11,7 +11,7 @@ function [V, alpha, beta] = AeroAngles(X)
     
     % Calculate the Angles
     V           = norm([u,v,w]);    % Total Velocity (m/s)
-    beta        = asin(V/W);        % Sideslip Angle (rad)
+    beta        = asin(v/V);        % Sideslip Angle (rad)
     alpha       = atan(w./u);       % Angle of Attack (rad)
     
 end
