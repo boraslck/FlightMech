@@ -47,10 +47,15 @@ function [X_trim, U_trim] = Trim(FlightData, X0)
         att_eul(2)      = x_bar(1);
         quats           = e2q(att_eul);
         X0(7:10)        = quats/norm(quats);
+        
 
 
         % State Rates 
+<<<<<<< Updated upstream
         X_dot           = GuessRates(FlightData,X,U);
+=======
+        X_dot           = GuessRates(FlightData,X0,U0);
+>>>>>>> Stashed changes
         f_bar           = X_dot(tr);
 
         % JACOBIAN perturbations
