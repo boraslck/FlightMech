@@ -4,7 +4,7 @@
 
 %% Function
 
-function [X_trim, U_trim] = trim(FlightData, X0)
+function [X_trim, U_trim] = Trim(FlightData, X0)
 
     % Extract Aircraft Flight Data
     m                   = FlightData.Inertial.m;    % mass(kg)
