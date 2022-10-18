@@ -1,4 +1,4 @@
-%% Flow Properties
+ %% Flow Properties
 
 % This function finds the atmospheric density and the dynamic pressure at a
 % given altitude
