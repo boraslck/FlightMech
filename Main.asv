@@ -41,26 +41,21 @@ X0          = [X0_init(1:6); quats_init; X0_init(10:12)];
 U0          = U0_init;
 
 %% Trim Routine
-<<<<<<< Updated upstream
-[X_trim U_Trim] = Trim (FlightData,X0);
-=======
 [X_trim U_trim] = Trim (FlightData,X0);
->>>>>>> Stashed changes
 
 %% Integrate
 for i = 1:n_pt
 [X_new] = Integrate(FlightData,X_trim,U_trim,dt);
-X(:,i) = X_new;
-%U(:,i) = U_new;
+X(i)
 end
 
 %% Quaternions to Euler Angles
-quats = X(7:10,:);
+quats = X_new(7:10);
 [eulers] = q2e(quats);
 
 %% Plotting
 figure 
-plot(X(11),X(12)) % Plot horizontal vs vertical position
+plot(X_new(10),X_new(11)) % Plot horizontal vs vertical position
 hold on
 grid on
 hold off

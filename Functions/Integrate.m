@@ -8,7 +8,7 @@ function [X_new] = Integrate(FlightData,X_0,U,dt)
     X_0 = Normalise(X_0);
     
     % State Rate at Step 1
-    [Xdot, CL, Fa_y] = StateRates(FlightData, X_0, U, angle_rates);
+    [Xdot, CL, Cy] = GuessRates(FlightData, X_0, U);
     X_dot_1 = Xdot;
     
     % Incriment at Step 1
@@ -21,7 +21,7 @@ function [X_new] = Integrate(FlightData,X_0,U,dt)
     X_2 = Normalise(X_2);
     
     % State Rate at Step 2
-    [Xdot, CL, Fa_y] = StateRates(FlightData, X_2, U, angle_rates);
+    [Xdot, CL, Cy] = GuessRates(FlightData, X_2, U);
     X_dot_2 = Xdot;
     
     % Incriment at Step 2 
@@ -34,7 +34,7 @@ function [X_new] = Integrate(FlightData,X_0,U,dt)
     X_3 = Normalise(X_3);
     
     % State Rate at Step 3
-    [Xdot, CL, Fa_y] = StateRates(FlightData, X_3, U, angle_rates);
+    [Xdot, CL, Cy] = GuessRates(FlightData, X_3, U);
     X_dot_3 = Xdot;
     
     % Incriment at Step 3
@@ -47,7 +47,7 @@ function [X_new] = Integrate(FlightData,X_0,U,dt)
     X_4 = Normalise(X_4);
     
     % State Rate at Step 4
-    [Xdot, CL, Fa_y] = StateRates(FlightData, X_4, U, angle_rates);
+    [Xdot, CL, Cy] = GuessRates(FlightData, X_4, U);
     X_dot_4 = Xdot;
     
     % Incriment at Step 4
