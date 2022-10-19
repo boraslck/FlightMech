@@ -1,7 +1,7 @@
 %% PlotData.m
 % Convert current states and controls into presentable units (e.g. radians to degrees) and generate plots of all variables relevant to the manoeuvre.
 
-function PlotData(Eulers,Control,Time,timestep,alpha,beta,X)
+function PlotData(Eulers,Control,Time,X)
     % Convert back from radians to degrees where necessary
     Eulers = rad2deg(Eulers);
     Control = rad2deg(Control);
@@ -13,7 +13,9 @@ function PlotData(Eulers,Control,Time,timestep,alpha,beta,X)
     box on
     grid on
     set(gca,'FontSize',18,'FontName','Times New Roman');
-    plot(Time*timestep,Eulers, 'linewidth', 2)
+    plot(Time,Eulers(1,:), 'linewidth', 2)
+    plot(Time,Eulers(2,:), 'linewidth', 2)
+    plot(Time,Eulers(3,:), 'linewidth', 2)
     xlabel('Time (seconds)');
     ylabel('Euler Angles ({\circ})');
     legend('Roll $\phi$', 'Pitch $\theta$', 'Yaw $\psi$','interpreter','latex', 'location', 'best');
@@ -25,23 +27,10 @@ function PlotData(Eulers,Control,Time,timestep,alpha,beta,X)
     box on
     grid on
     set(gca,'FontSize',18,'FontName','Times New Roman');
-    plot(Time*timestep,Control, 'linewidth', 2);
+    plot(Time,Control, 'linewidth', 2);
     xlabel('Time (seconds)');
     ylabel('Control Deflections ($^\circ$)', 'interpreter', 'latex');
     legend('$\delta_t$','$\delta_e$','$\delta_a$','$\delta_r$','interpreter','latex', 'location', 'best');
-    hold off;
-        
-    % Plotting aero angles
-    subplot(2,3,3)
-    hold on
-    box on
-    grid on
-    set(gca,'FontSize',18,'FontName','Times New Roman');
-    plot(Time*timestep,rad2deg(alpha),'linewidth',2);
-    plot(Time*timestep,rad2deg(beta),'linewidth',2);
-    xlabel('Time (seconds)')
-    ylabel('Aero Angles ({\circ})')
-    legend('Angle of attack $\alpha$', 'Sideslip angle $\beta$', 'interpreter','latex', 'location', 'best');
     hold off;
     
     % Plotting velocities 
@@ -50,9 +39,9 @@ function PlotData(Eulers,Control,Time,timestep,alpha,beta,X)
     box on
     grid on
     set(gca,'FontSize',18,'FontName','Times New Roman');
-    plot(Time*timestep,X(1:end-1,1),'linewidth',2);
-    plot(Time*timestep,X(1:end-1,2),'linewidth',2);
-    plot(Time*timestep,X(1:end-1,3),'linewidth',2);
+    plot(Time,X(1,:),'linewidth',2);
+    plot(Time,X(2,:),'linewidth',2);
+    plot(Time,X(3,:),'linewidth',2);
     xlabel('Time (seconds)')
     ylabel('Velocity (m/s)')
     legend('$u$', '$v$', '$w$', 'interpreter','latex', 'location', 'best');
@@ -64,9 +53,9 @@ function PlotData(Eulers,Control,Time,timestep,alpha,beta,X)
     box on
     grid on
     set(gca,'FontSize',18,'FontName','Times New Roman');
-    plot(Time*timestep,X(1:end-1,4),'linewidth',2);
-    plot(Time*timestep,X(1:end-1,5),'linewidth',2);
-    plot(Time*timestep,X(1:end-1,6),'linewidth',2);
+    plot(Time,X(4,:),'linewidth',2);
+    plot(Time,X(5,:),'linewidth',2);
+    plot(Time,X(6,:),'linewidth',2);
     xlabel('Time (seconds)')
     ylabel('Body Rates (rad/s)')
     legend('$p$', '$q$', '$r$', 'interpreter','latex', 'location', 'best');
@@ -78,27 +67,27 @@ function PlotData(Eulers,Control,Time,timestep,alpha,beta,X)
     box on
     grid on
     set(gca,'FontSize',18,'FontName','Times New Roman');
-    plot(Time*timestep,X(1:end-1,11),'linewidth',2);
-    plot(Time*timestep,X(1:end-1,12),'linewidth',2);
-    plot(Time*timestep,X(1:end-1,13),'linewidth',2);
+    plot(Time,X(11,:),'linewidth',2);
+    plot(Time,X(12,:),'linewidth',2);
+    plot(Time,X(13,:),'linewidth',2);
     xlabel('Time (seconds)')
     ylabel('Positions (m)')
     legend('$x_e$','$y_e$', '$z_e$', 'interpreter','latex', 'location', 'best');
     hold off;
     
-    if length(Time) == 26/timestep
-        figure (2)
-        hold on
-        set(gca,'FontSize',18,'FontName','Times New Roman');
-        plot3(X(:,11),X(:,12),-X(:,13),'linewidth',2);
-        view(3)
-        xlabel('$x_e$ (m)', 'interpreter', 'latex')
-        ylabel('$y_e$ (m)', 'interpreter', 'latex')
-        zlabel('$z_e$ (m)', 'interpreter', 'latex')
-        axis([0 600 -1 1 0 1000])
-        hold off;
-    else
-        return
-    end
+    %if length(Time) == 26/timestep
+       %figure (2)
+        %hold on
+        %set(gca,'FontSize',18,'FontName','Times New Roman');
+        %plot3(X(:,11),X(:,12),-X(:,13),'linewidth',2);
+        %view(3)
+        %xlabel('$x_e$ (m)', 'interpreter', 'latex')
+        %ylabel('$y_e$ (m)', 'interpreter', 'latex')
+        %zlabel('$z_e$ (m)', 'interpreter', 'latex')
+        %axis([0 600 -1 1 0 1000])
+        %hold off;
+    %else
+        %return
+    %end
 
 end
