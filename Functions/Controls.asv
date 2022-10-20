@@ -1,0 +1,20 @@
+function [U_control] = Controls(U_trim,time,U_new,T_new)
+
+U_new = U_trim;
+
+if time <=T_new
+    for i = 1:length(T_new)
+        if time <1.01*T_new(i) && time>0.99*T_new(i)
+            break
+        end
+    end
+    
+    updateBool = (any(U_new(1:4,i),2) ~=0);
+end
+U_new = U_new(1:4,i);
+
+U_control(
+
+
+
+end
