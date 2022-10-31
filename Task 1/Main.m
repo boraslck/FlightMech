@@ -23,14 +23,14 @@ V           = 100;              % Velocity (180), (100)
 % Simulation Parameters
 dt          = 0.01;             % Delta T
 t0          = 0;                % Initial Time
-tf          = 3;               % End Time
+tf          = 400;               % End Time
 n_pt        = tf/dt;            % Number of Intervals
 
 % Initialise Data for faster process time
 X           = zeros(13,n_pt);   % State Vector
 U           = zeros(4,n_pt);    % Control Vector
 T           = zeros(1,n_pt);    % Time Vector
-T           = t0:dt:tf;         % Points in Time
+
 %% Initialise
 % Specify the Flight Data
 [X0_init U0_init FlightData] = Initialise(V,cg_pos);
@@ -56,6 +56,7 @@ U = U_trim;
 fprintf('Load control file to GUI and output to workspace to continue')
 pause
 clc
+T           = t0:dt:tf;         % Points in Time
 
 for i = 2:length(T)
     if T(i) <= 1
