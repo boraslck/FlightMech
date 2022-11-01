@@ -10,6 +10,8 @@ dt      = 0.1;          % time step
 t_end   = 8;            % total time
 time    = 0:dt:t_end;   % time vector
 
+[X0 U0 FlightData ] = Initialise(V,CG);
+
 % Input Matrices 
     % Longitudinal
     A_long = [];
