@@ -5,60 +5,23 @@
 % Clear workspace, command window and all figures
 clear, clc, close all
 
-%<<<<<<< HEAD
-%load("aero3560_LoadFlightDataPC9_CG2.mat")
+% Choose flight condition
+V   = 100;  % Velocity [100 or 180]
+CG  = 1;    % Centre of mass [1 or 2]
 
-% Load flight data
-%FlightData = aero3560_LoadFlightDataPC9_CG2;
-%=======
+% Initialise Data and get Longitudinal matrices
+[A_Lon,B_Lon FlightData X0] = InitialiseMatrix(V,CG);
 
-% Load flight data
-%[FlightData] = aero3560_LoadFlightDataPC9_CG2();
-%>>>>>>> f894f3c675c14c8e6ff7615a90dbc7a0a893d7a2
-%FlightData = aero3560_LoadFlightDataPC9_nominalCG1;
+% Lateral matrices
+[A_Lat, B_Lat] = GetLateralStateSpaceMatrices(FlightData, X0); 
 
-% Load input
-%load("ICs_PC9_CG2_100Kn_1000ft.mat");
-%load("ICs_PC9_CG2_180Kn_1000ft.mat");
-%load("ICs_PC9_nominalCG1_100Kn_1000ft.mat");
-%load("ICs_PC9_nominalCG1_180Kn_1000ft.mat");
+% ELiminate x and y positions as they do not impact performance
+X0([10, 11]) = [];
 
-%<<<<<<< HEAD
-%=======
-%X0([10, 11]) = [];
-
-%>>>>>>> f894f3c675c14c8e6ff7615a90dbc7a0a893d7a2
 % Time variables
 dt      = 0.1;          % time step
 t_end   = 8;            % total time
 time    = 0:dt:t_end;   % time vector
-
-%<<<<<<< HEAD
-%=======
-%[X0 U0 FlightData ] = Initialise(V,CG);
-
-%>>>>>>> f894f3c675c14c8e6ff7615a90dbc7a0a893d7a2
-% Input Matrices 
-    % Longitudinal
-    load("Longitudinal_Matrices_PC9_CG2_100Kn_1000ft.mat");
-    %load("Longitudinal_Matrices_PC9_CG2_180Kn_1000ft.mat");
-    %load("Longitudinal_Matrices_PC9_nominalCG1_100Kn_1000ft.mat");
-    %load("Longitudinal_Matrices_PC9_nominalCG1_100Kn_1000ft.mat");
-
-    % Lateral 
-%<<<<<<< HEAD
-    [A_lat, B_lat] = GetLateralStateSpaceMatrices(FlightData, X0); 
-
-%% Eigen Value Analysis
-% Calculate Eigen Values and Vectors
-[V_lon, E_lon] = eig(A_lon);
-[V_lat, E_lat] = eig(A_lat);
-
-% Calculate Natural Frequencies and Damping Ratios
-[Wn_lon, Z_lon] = damp(A_lon);
-[Wn_lat, Z_lat] = damp(A_lat);
-%=======
-    [A_Lat, B_Lat] = GetLateralStateSpaceMatrices(FlightData, X0); 
 
 %% Eigen Value Analysis
 % Calculate Eigen Values and Vectors
@@ -68,7 +31,6 @@ time    = 0:dt:t_end;   % time vector
 % Calculate Natural Frequencies and Damping Ratios
 [Wn_Lon, Z_Lon] = damp(A_Lon);
 [Wn_Lat, Z_Lat] = damp(A_Lat);
-%>>>>>>> f894f3c675c14c8e6ff7615a90dbc7a0a893d7a2
 
 %% Simulating a response
 % Initial State Vector
@@ -82,11 +44,7 @@ t_i = 2;
 
 % Choose which controls are to have a deflection (1 = on, 0 = off)
 % In the order of elevator | ailerons | rudder
-%<<<<<<< HEAD
 controls = [0 0 0];
-%=======
-%controls = [1 1 1];
-%>>>>>>> f894f3c675c14c8e6ff7615a90dbc7a0a893d7a2
 
 % Check if time of impulse is within the range of time vector
 if t_i < time(1) 
@@ -97,7 +55,6 @@ end
 
 % Loop through vector to detemine controls
 for j = 1:length(controls)
-
     % Control values
     if controls(j) == 1
     control_value(j) = deg2rad(impulse_size);
@@ -109,11 +66,7 @@ for j = 1:length(controls)
 end
 
 % Control Vector
-%<<<<<<< HEAD
 U_i = [0; control_value(j)'];
-%=======
-U_i = [0; control_value'];
-%>>>>>>> f894f3c675c14c8e6ff7615a90dbc7a0a893d7a2
 
 % Loop through time vector
 for i = 2:length(time)
@@ -129,25 +82,6 @@ for i = 2:length(time)
     end
 
     % Break state vector into components
-%<<<<<<< HEAD
-    X_lon = X(1:5,i-1); % Longitudinal
-    X_lat = X(6:10,i-1); % Laterial (the following will keep this convention)
-
-    % Break control into components
-    U_lon = U(1:2);   
-    U_lat = U(3:4);     
-        
-    % Rates of change
-    Lon_dot = A_lon*X_lon + B_lon*U_lon;
-    Lat_dot = A_lat*X_lat + B_lat*U_lat;
-        
-    % Euler integration
-    X_lon = X_lon + Lon_dot*dt;
-    X_lat = X_lat + Lat_dot*dt;
-
-    % Update state vector
-    X(:,i) = [X_lon;X_lat];
-%=======
     X_Lon = X(1:5,i-1); % Longitudinal
     X_Lat = X(6:10,i-1); % Laterial (the following will keep this convention)
 
@@ -165,20 +99,7 @@ for i = 2:length(time)
 
     % Update state vector
     X(:,i) = [X_Lon;X_Lat];
-%>>>>>>> f894f3c675c14c8e6ff7615a90dbc7a0a893d7a2
-
 end
-
-% Continue with graphing
-%<<<<<<< HEAD
-%=======
-plot(time,X(1,:))
-hold on
-grid on
-grid minor
-plot(time,X(2,:))
-plot(time,X(3,:))
-%>>>>>>> f894f3c675c14c8e6ff7615a90dbc7a0a893d7a2
 
 
 

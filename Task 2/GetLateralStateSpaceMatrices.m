@@ -2,7 +2,17 @@
 % Author: 490412626
 % Date: 28/10/22
 
-function [Alat, Blat] = GetLateralStateSpaceMatrices(FlightData, V, theta, h)
+function [A_Lat, B_Lat] = GetLateralStateSpaceMatrices(FlightData, V, X0)
+
+    % Convert V to m/s
+    V = V/1.944; 
+
+    % Other inputs
+    theta = X0(8);
+    h = -X(12);
+    [rho,Q] = FlowProperties(X0,V);
+    
+
     % Import flight data
         % Intertial data
         g   = FlightData.g;
@@ -35,15 +45,6 @@ function [Alat, Blat] = GetLateralStateSpaceMatrices(FlightData, V, theta, h)
         Clr = FlightData.Aero.Clr;
         Clda = FlightData.Aero.Clda;
         Cldr = FlightData.Aero.Cldr;
-
-    % Insert
-    % airdensity
-    % function
-    % Density (kg/m^3) 
-    [~, ~, ~, rho] = atmosisa(h);
-    
-    % Dynamic pressure
-    Q = (1/2)*rho*V^2;
 
     % Aerodynamic derivatives for lateral state space matrix
     Q   = (1/2)*rho*V^2;
@@ -88,7 +89,7 @@ function [Alat, Blat] = GetLateralStateSpaceMatrices(FlightData, V, theta, h)
     A55 = 0;
 
     % Lateral state space matrix
-    A_lat = [A11 A12 A13 A14 A15;
+    A_Lat = [A11 A12 A13 A14 A15;
             A21 A22 A23 A24 A25;
             A31 A32 A33 A34 A35;
             A41 A42 A43 A44 A45;
@@ -115,7 +116,7 @@ function [Alat, Blat] = GetLateralStateSpaceMatrices(FlightData, V, theta, h)
     B52 = 0;
 
     % Laterial control state space matrix [B]
-    B_lat = [B11 B12;
+    B_Lat = [B11 B12;
             B21 B22;
             B31 B32;
             B41 B42;
