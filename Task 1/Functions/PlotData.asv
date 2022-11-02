@@ -14,7 +14,7 @@ function PlotData(Eulers,Control,Time,X)
     set(gca,'FontSize',18,'FontName','Times New Roman');
     plot(X(11,:),X(12,:)) % Plot horizontal vs vertical position
     xlabel('Horizontal Position (m)');
-    ylabel('Vertical Position (m)');
+    ylabel('Horizontal Position (m)');
     hold off
     
     % Plotting euler angles
