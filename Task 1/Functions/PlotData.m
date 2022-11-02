@@ -30,8 +30,21 @@ function PlotData(Eulers,Control,Time,X)
     ylabel('Side Travelling Position (y axis)');
     hold off
     
-    % Plotting euler angles
+    % Plot 3D position
     figure (3)
+    hold on
+    box on
+    grid on
+    set(gca,'FontSize',18,'FontName','Times New Roman');
+    plot(X(11,:),X(12,:),X(13,:))
+    title('3D Position');
+    xlabel('X (Forward)');
+    ylabel('Y (Right)');
+    zlabel('Z (Altitude)');
+    hold off
+    
+    % Plotting euler angles
+    figure (4)
     hold on
     box on
     grid on
@@ -45,7 +58,7 @@ function PlotData(Eulers,Control,Time,X)
     hold off;
     
     % Plotting control
-    figure (4)
+    figure (5)
     hold on
     box on
     grid on
@@ -57,7 +70,7 @@ function PlotData(Eulers,Control,Time,X)
     hold off;
     
     % Plotting velocities 
-    figure (5)
+    figure (6)
     hold on
     box on
     grid on
@@ -71,7 +84,7 @@ function PlotData(Eulers,Control,Time,X)
     hold off;
 
     % Plotting body rates 
-    figure (6)
+    figure (7)
     hold on
     box on
     grid on
@@ -85,7 +98,7 @@ function PlotData(Eulers,Control,Time,X)
     hold off;
     
     % Plotting xe,ye,ze 
-    figure (7)
+    figure (8)
     hold on
     box on
     grid on
