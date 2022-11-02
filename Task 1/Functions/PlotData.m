@@ -6,19 +6,32 @@ function PlotData(Eulers,Control,Time,X)
     Eulers = rad2deg(Eulers);
     Control = rad2deg(Control);
 
-    % Plot horizontal v vertical position
+    % Plot horizontal v vertical position (side view)
     figure (1)
     hold on
     box on
     grid on
     set(gca,'FontSize',18,'FontName','Times New Roman');
-    plot(X(11,:),X(12,:)) % Plot horizontal vs vertical position
-    xlabel('Horizontal Position (m)');
-    ylabel('Vertical Position (m)');
+    plot(X(11,:),X(13,:)) % Plot horizontal vs vertical position
+    title('Side view');
+    xlabel('Horizontal Position (x-axis)');
+    ylabel('Vertical Position (z-axis)');
+    hold off
+    
+    % Plot horizontal v side position (top view)
+    figure (2)
+    hold on
+    box on
+    grid on
+    set(gca,'FontSize',18,'FontName','Times New Roman');
+    plot(X(11,:),X(12,:)) % Plot horizontal vs side position
+    title('Top view');
+    xlabel('Forward Travelling Position (x-axis)');
+    ylabel('Side Travelling Position (y axis)');
     hold off
     
     % Plotting euler angles
-    figure (2)
+    figure (3)
     hold on
     box on
     grid on
@@ -32,7 +45,7 @@ function PlotData(Eulers,Control,Time,X)
     hold off;
     
     % Plotting control
-    figure (3)
+    figure (4)
     hold on
     box on
     grid on
@@ -44,7 +57,7 @@ function PlotData(Eulers,Control,Time,X)
     hold off;
     
     % Plotting velocities 
-    figure (4)
+    figure (5)
     hold on
     box on
     grid on
@@ -58,7 +71,7 @@ function PlotData(Eulers,Control,Time,X)
     hold off;
 
     % Plotting body rates 
-    figure (5)
+    figure (6)
     hold on
     box on
     grid on
@@ -72,7 +85,7 @@ function PlotData(Eulers,Control,Time,X)
     hold off;
     
     % Plotting xe,ye,ze 
-    figure (6)
+    figure (7)
     hold on
     box on
     grid on
