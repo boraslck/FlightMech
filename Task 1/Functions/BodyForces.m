@@ -48,6 +48,9 @@ function [F_body, M_body] = BodyForces(FlightData, X, U, Cfa_x, Cfa_z, CL, Q, al
         q1  = X(8);
         q2  = X(9);
         q3  = X(10);
+        
+        euler = q2e([q0;q1;q2;q3]);
+        phi = euler(1);
 
     % Relavent Control Inputs
     delta_e = U(2);
@@ -66,7 +69,7 @@ function [F_body, M_body] = BodyForces(FlightData, X, U, Cfa_x, Cfa_z, CL, Q, al
     Fa_z = Q*Cfa_z*S;
     
     % Side Force Coefficient
-    Cy = Cyb*beta + Cybd*beta_dot_hat + Cyp*p_hat + Cyr*r_hat + Cyda*delta_a + Cydr*delta_r;
+    Cy = Cyb*beta + Cybd*beta_dot_hat + Cyp*p_hat + Cyr*r_hat + Cyda*delta_a + Cydr*delta_r + CL*sin(phi);
 
     % Side Force
     Fa_y = Q*Cy*S;
