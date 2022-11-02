@@ -13,6 +13,7 @@ time    = 0:dt:t_end;   % time vector
 % Choose Flight Conditions
 V       = 100;
 CG      = 1;
+% Load Matrices and Flight Data
 [A_Lon B_Lon FlightData ] = InitialiseMatrix(V,CG);
 % Input Matrices 
     % Longitudinal
