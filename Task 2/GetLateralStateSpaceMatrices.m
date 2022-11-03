@@ -2,24 +2,24 @@
 % Author: 490412626
 % Date: 28/10/22
 
-function [A_Lat, B_Lat] = GetLateralStateSpaceMatrices(FlightData, V, X0)
+function [A_Lat, B_Lat] = GetLateralStateSpaceMatrices(FlightData,V,X0)
 
     % Convert V to m/s
     V = V/1.944; 
 
     % Other inputs
     theta = X0(8);
-    h = -X(12);
+    h = -X0(12);
     [rho,Q] = FlowProperties(X0,V);
     
 
     % Import flight data
         % Intertial data
-        g   = FlightData.g;
-        m   = FlightData.m;
-        Ixx = FlightData.Ixx;
-        Izz = FlightData.Izz;
-        Ixz = FlightData.Ixz;
+        g   = FlightData.Inertial.g;
+        m   = FlightData.Inertial.m;
+        Ixx = FlightData.Inertial.Ixx;
+        Izz = FlightData.Inertial.Izz;
+        Ixz = FlightData.Inertial.Ixz;
 
         % Geometric data
         S   = FlightData.Geo.S;

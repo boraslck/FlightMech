@@ -5,6 +5,9 @@
 % Clear workspace, command window and all figures
 clear, clc, close all
 
+folder = fileparts(which('Task_2.m')); 
+addpath(genpath(folder));
+
 % Choose flight condition
 V   = 100;  % Velocity [100 or 180]
 CG  = 1;    % Centre of mass [1 or 2]
@@ -13,7 +16,7 @@ CG  = 1;    % Centre of mass [1 or 2]
 [A_Lon,B_Lon FlightData X0] = InitialiseMatrix(V,CG);
 
 % Lateral matrices
-[A_Lat, B_Lat] = GetLateralStateSpaceMatrices(FlightData, X0); 
+[A_Lat, B_Lat] = GetLateralStateSpaceMatrices(FlightData,V,X0); 
 
 % ELiminate x and y positions as they do not impact performance
 X0([10, 11]) = [];
@@ -66,7 +69,7 @@ for j = 1:length(controls)
 end
 
 % Control Vector
-U_i = [0; control_value(j)'];
+U_i = [0; control_value'];
 
 % Loop through time vector
 for i = 2:length(time)
@@ -100,6 +103,7 @@ for i = 2:length(time)
     % Update state vector
     X(:,i) = [X_Lon;X_Lat];
 end
+
 
 
 
