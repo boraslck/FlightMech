@@ -101,8 +101,7 @@ for i = 2:length(time)
     X_Lat = X_Lat + Lat_dot*dt;
 
     % Update state vector
-    X(:,i) = [X_Lon;X_Lat];
-   % X(:,i) = [X_Lon(1) X_Lat(1) X_Lon(2) X_Lat(2) X_Lon(3) X_Lat(3) X_Lat(4) X_Lon(4) X_Lat(5) X_Lon(5)]';
+    X(:,i) = [X_Lon(1) X_Lat(1) X_Lon(2) X_Lat(2) X_Lon(3) X_Lat(3)]';
 end
 % State vector X(u v w p q r phi theta psy z)
 % State vector X(u w q theta z v p r phi psy)
