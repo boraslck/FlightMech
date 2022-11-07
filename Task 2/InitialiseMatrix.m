@@ -1,7 +1,7 @@
 %% Initialisation
 
 %%
-function [A_Lon B_Lon FlightData ] = InitialiseMatrix(V,CG)
+function [A_Lon B_Lon FlightData X0] = InitialiseMatrix(V,CG)
 
 
 
@@ -13,11 +13,13 @@ switch V % Velocity
 FlightData = aero3560_LoadFlightDataPC9_nominalCG1;
 
 load Longitudinal_Matrices_PC9_nominalCG1_100Kn_1000ft.mat
+load ICs_PC9_nominalCG1_100Kn_1000ft.mat
 
             case 2 % CG postion 2
 FlightData = aero3560_LoadFlightDataPC9_CG2;
  
-load Longitudinal_Matrices_PC9_nominalCG1_180Kn_1000ft.mat
+load Longitudinal_Matrices_PC9_CG2_100Kn_1000ft.mat
+load ICs_PC9_CG2_100Kn_1000ft.mat
   
         end
         
@@ -28,12 +30,14 @@ load Longitudinal_Matrices_PC9_nominalCG1_180Kn_1000ft.mat
 FlightData = aero3560_LoadFlightDataPC9_nominalCG1;
 
 
-load Longitudinal_Matrices_PC9_CG2_100Kn_1000ft.mat
+load Longitudinal_Matrices_PC9_nominalCG1_180Kn_1000ft.mat
+load ICs_PC9_nominalCG1_180Kn_1000ft.mat
 
             case 2
 FlightData = aero3560_LoadFlightDataPC9_CG2;
  
 load Longitudinal_Matrices_PC9_CG2_180Kn_1000ft.mat
+load ICs_PC9_CG2_180Kn_1000ft.mat
   
         end
 end
