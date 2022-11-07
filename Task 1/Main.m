@@ -87,6 +87,7 @@ quats = X(7:10,:);
 [Eulers] = q2e(quats);
 
 %% Plotting
+<<<<<<< HEAD
 figure (1)
 plot(X(11,:),X(12,:)) % Plot horizontal vs vertical position
 hold on
@@ -185,3 +186,6 @@ end
 
 
 
+=======
+PlotData(Eulers,U,T,X);
+>>>>>>> 2cebdea1b990edbe20f314ab77f81a150f65931d
