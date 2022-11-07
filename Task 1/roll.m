@@ -1,26 +1,46 @@
 
 
 
-function [U_turn, ratio, BodyRates] = st_turn(Params, U_trim, V)
+function [U_turn, ratio, BodyRates] = roll(FlightData, U_trim, V,X)
 
     % Unpack aircraft characteristics
-    g       = Params.Inertial.g;
-    c       = Params.Geo.c;
-    Cnr     = Params.Aero.Cnr;
-    Cndr    = Params.Aero.Cndr;
-    Cnda    = Params.Aero.Cnda;
-    Clr     = Params.Aero.Clr;
-    Cldr    = Params.Aero.Cldr;
-    Clda    = Params.Aero.Clda;
+    S       = FlightData.Geo.S;
+    b       = FlightData.Geo.b;
+    Ixx     = FlightData.Inertial.Ixx;
+    g       = FlightData.Inertial.g;
+    c       = FlightData.Geo.c;
+    Cnr     = FlightData.Aero.Cnr;
+    Cndr    = FlightData.Aero.Cndr;
+    Cnda    = FlightData.Aero.Cnda;
+    Clr     = FlightData.Aero.Clr;
+    Cldr    = FlightData.Aero.Cldr;
+    Clda    = FlightData.Aero.Clda;
+    Clp     = FlightData.Aero.Clp;
+    Max_da  = FlightData.ControlLimits.Upper(3);
     
     V = 0.514444*V;
+    [rho,Q] = FlowProperties(X,V);
+    
+    
+    EoM1 = Q*S*b/Ixx*b/2/V*Clp;
+    EoM2 = Q*S*b/Ixx*Clda;
+    
+    p_dot_max = Q*S*b/Ixx*Clda*Max_da;
+    p_max = -2*V/b*Clda/Clp*Max_da;
+    
+    p = p_max/Max_da*0.1;
+    p_dot = p_dot_max/Max_da*0.1;
 
+
+    fprintf ('%f p + %f da',EoM1,EoM2)
+    fprintf('\n')
+    
     % Acceleration (g's) - defined by assignment
     nz = sqrt(2);
     
     % Calculate bank angle
     phi = acos(1/nz);
-    phi = deg2rad(89);
+    phi = deg2rad(90);
     
     % Calculate steady heading rate (rad/s)
     psi_dot = (g/V)*tan(phi);
@@ -49,6 +69,9 @@ function [U_turn, ratio, BodyRates] = st_turn(Params, U_trim, V)
     
     % Output controls vector
     U_turn = [U_trim(1); U_trim(2); delta_a; delta_r];
+        % Output controls vector
+    U_turn = [U_trim(1); U_trim(2); Max_da; 0];
+    
     
     % Approximate ratio of aileron to rudder
     ratio = (Clr*Cndr)/(Cnr*Clda);
