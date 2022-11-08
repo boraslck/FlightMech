@@ -9,11 +9,11 @@ folder = fileparts(which('Task_2.m'));
 addpath(genpath(folder));
 
 % Choose flight condition
-V   = 100;  % Velocity [100 or 180]
+V   = 180;  % Velocity [100 or 180]
 CG  = 1;    % Centre of mass [1 or 2]
 
 % Initialise Data and get Longitudinal matrices
-[A_Lon,B_Lon FlightData X0] = InitialiseMatrix(V,CG);
+[A_Lon,B_Lon FlightData X0 U0] = InitialiseMatrix(V,CG);
 
 % Lateral matrices
 [A_Lat, B_Lat] = GetLateralStateSpaceMatrices(FlightData,V,X0); 
@@ -21,9 +21,12 @@ CG  = 1;    % Centre of mass [1 or 2]
 % ELiminate x and y positions as they do not impact performance
 X0([10, 11]) = [];
 
+% Change positions of X0 so the first 5 are long and the next 5 are lat
+X0_n = [X0(1);X0(3);X0(5);X0(8);X0(10);X0(2);X0(4);X0(6);X0(7);X0(9);];
+
 % Time variables
 dt      = 0.1;          % time step
-t_end   = 8;            % total time
+t_end   = 120;            % total time
 time    = 0:dt:t_end;   % time vector
 
 %% Eigen Value Analysis
@@ -38,7 +41,7 @@ time    = 0:dt:t_end;   % time vector
 %% Simulating a response
 % Initial State Vector
 X(:,1) = X0;
-
+%X(:,1) = [0 0 0 0 0 0 0 0 0 0]';
 % Choose size of impulse [degrees]
 impulse_size = 5;
 
@@ -78,10 +81,10 @@ for i = 2:length(time)
     if time(i) >= t_i && time(i) < t_i + 0.5
 
         % Apply impulse
-        U = U_i;
+        U = U_i + U0;
     else
         % Otherwise do not apply impulse
-        U = [0 0 0 0]';
+        U = [0 0 0 0]' + U0;
     end
 
     % Break state vector into components
@@ -91,6 +94,9 @@ for i = 2:length(time)
     % Break control into components
     U_Lon = U(1:2);   
     U_Lat = U(3:4);     
+
+    % Total U vector
+    U(:,i) = [U_Lon; U_Lat];
         
     % Rates of change
     Lon_dot = A_Lon*X_Lon + B_Lon*U_Lon;
